@@ -30,9 +30,8 @@ Start your Phoenix app with:
 
     $ mix phx.server
 
-You can also run your app inside IEx (Interactive Elixir) as:
-
-    $ iex -S mix phx.server
-
-
 docker-compose up -d
+
+mix ecto.migrate
+
+mix phx.gen.live Decks Deck decks name:string

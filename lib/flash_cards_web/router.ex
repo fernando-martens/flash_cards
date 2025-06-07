@@ -18,6 +18,13 @@ defmodule FlashCardsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/decks", DeckLive.Index, :index
+    live "/decks/new", DeckLive.Index, :new
+    live "/decks/:id/edit", DeckLive.Index, :edit
+
+    live "/decks/:id", DeckLive.Show, :show
+    live "/decks/:id/show/edit", DeckLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
