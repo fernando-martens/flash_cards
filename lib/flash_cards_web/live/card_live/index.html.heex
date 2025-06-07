@@ -1,0 +1,43 @@
+<.header>
+  Listing Cards
+  <:actions>
+    <.link patch={~p"/decks/#{@deck_id}/cards/new"}>
+      <.button>New Card</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="cards" rows={@streams.cards}>
+  <:col :let={{_id, card}} label="Question">{card.question}</:col>
+  <:col :let={{_id, card}} label="Answer">{card.answer}</:col>
+  <:action :let={{_id, card}}>
+    <.link patch={~p"/decks/#{@deck_id}/cards/#{card.id}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, card}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: card.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.back navigate={~p"/decks/#{@deck_id}"}>Back to deck</.back>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="card-modal"
+  show
+  on_cancel={JS.patch(~p"/decks/#{@deck_id}/cards")}
+>
+  <.live_component
+    module={FlashCardsWeb.CardLive.FormComponent}
+    id={@card.id || :new}
+    title={@page_title}
+    action={@live_action}
+    card={@card}
+    deck_id={@deck_id}
+    patch={~p"/decks/#{@deck_id}/cards"}
+  />
+</.modal>

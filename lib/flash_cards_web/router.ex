@@ -25,6 +25,11 @@ defmodule FlashCardsWeb.Router do
 
     live "/decks/:id", DeckLive.Show, :show
     live "/decks/:id/show/edit", DeckLive.Show, :edit
+
+    live "/decks/:deck_id/cards", CardLive.Index, :index
+    live "/decks/:deck_id/cards/new", CardLive.Index, :new
+    live "/decks/:deck_id/cards/:id/edit", CardLive.Index, :edit
+    live "/decks/:deck_id/cards/:id/show/edit", CardLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

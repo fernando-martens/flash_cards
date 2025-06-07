@@ -34,4 +34,12 @@ docker-compose up -d
 
 mix ecto.migrate
 
+mix ecto.drop
+rm -rf _build/
+
 mix phx.gen.live Decks Deck decks name:string
+
+$ mix phx.gen.live Decks Card cards question:string answer:string deck_id:references:decks --binary-id
+
+
+# REVIEW

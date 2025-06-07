@@ -2,6 +2,9 @@
   Deck {@deck.id}
   <:subtitle>This is a deck record from your database.</:subtitle>
   <:actions>
+    <.link patch={~p"/decks/#{@deck}/cards"} phx-click={JS.push_focus()}>
+      <.button>Cards</.button>
+    </.link>
     <.link patch={~p"/decks/#{@deck}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit deck</.button>
     </.link>
