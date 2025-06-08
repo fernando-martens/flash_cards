@@ -13,7 +13,8 @@ defmodule FlashCardsWeb.DeckLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:deck, Decks.get_deck!(id))}
+     |> assign(:deck, Decks.get_deck!(id))
+     |> assign(:points, [1, 2, 3, 4, 5])}
   end
 
   defp page_title(:show), do: "Show Deck"

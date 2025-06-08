@@ -15,6 +15,14 @@
   <:item title="Name">{@deck.name}</:item>
 </.list>
 
+<canvas
+  id="my-chart"
+  phx-hook="ChartJS"
+  data-points={Jason.encode!(@points)}
+  data-labels={Jason.encode!([~c"A", ~c"B", ~c"C", ~c"D", ~c"E"])}
+>
+</canvas>
+
 <.back navigate={~p"/decks"}>Back to decks</.back>
 
 <.modal :if={@live_action == :edit} id="deck-modal" show on_cancel={JS.patch(~p"/decks/#{@deck}")}>

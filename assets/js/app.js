@@ -15,6 +15,8 @@
 //     import "some-package"
 //
 
+import Chart from 'chart.js/auto';
+
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
 // Establish Phoenix Socket and LiveView configuration.
@@ -23,7 +25,32 @@ import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
+
+// https://medium.com/@lionel.aimerie/integrating-chart-js-into-elixir-phoenix-for-visual-impact-9a3991f0690f
+let hooks = {}
+hooks.ChartJS =  {
+  getProps() { 
+    return {
+      labels: JSON.parse(this.el.dataset.labels),
+      datasets: JSON.parse(this.el.dataset.points)
+    } 
+  },
+  mounted() {
+    const ctx = this.el;
+    const props = this.getProps();
+    const data = {
+      type: 'bar',
+      data: {
+        labels: props.labels,
+        datasets: [{data: props.datasets}]
+      }
+    };
+    new Chart(ctx, data);
+  }
+} 
+
 let liveSocket = new LiveSocket("/live", Socket, {
+  hooks: hooks, 
   longPollFallbackMs: 2500,
   params: {_csrf_token: csrfToken}
 })
